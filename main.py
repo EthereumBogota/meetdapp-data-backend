@@ -1,5 +1,7 @@
 import os
 import logging
+import uvicorn
+import save_ipfs as sdata
 from logging.handlers import RotatingFileHandler
 from sqlalchemy import create_engine
 from fastapi import FastAPI
@@ -43,3 +45,13 @@ async def check_db_connection():
             return {"message": "Database connection successful"}
     except Exception as e:
         return {"message": "Database connection failed", "error": str(e)}
+    
+@app.get("/save_data_ipfs/")
+async def save_data_ipfs(path: str):
+
+    print(f"Save data: {path}")
+
+    return path
+
+if __name__ == '__main__':
+    uvicorn.run(app, host='0.0.0.0', port=8088)
