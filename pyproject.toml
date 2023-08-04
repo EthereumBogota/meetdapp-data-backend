@@ -10,12 +10,13 @@ readme = "README.md"
 start = "app:main"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 sqlalchemy = "^2.0.19"
 fastapi = "^0.100.1"
 uvicorn = "^0.23.2"
 python-dotenv = "^1.0.0"
 psycopg2-binary = "^2.9.6"
+pexpect = "^4.8.0"
 
 [tool.poetry.group.dev.dependencies]
 python-dotenv = "^1.0.0"
