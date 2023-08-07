@@ -4,7 +4,7 @@ WORKDIR /code
 COPY poetry.lock pyproject.toml /code/
 RUN pip install poetry
 RUN poetry install 
-EXPOSE 5000
+EXPOSE 80
 # 
 COPY . /code/
 
