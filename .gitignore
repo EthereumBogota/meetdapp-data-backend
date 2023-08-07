@@ -18,19 +18,15 @@ venv.bak/
 .idea/
 
 # Ignore compiled files and build artifacts
-*.pyc
-*.pyo
 *.egg-info/
 dist/
 build/
 *.egg
-*.egg-info/
 *.pyd
 *.pyc
 *.pyo
 *.pyz
 *.pyw
-*.pyz
 
 # Ignore local development files
 db.sqlite3
@@ -41,50 +37,24 @@ db.sqlite3
 logs/
 
 # Ignore any other temporary or generated files
-__pycache__/
-*.sqlite3
 *.swp
 *.swo
 *.class
-*.pyc
-*.pyo
-*.pyd
 *.cache
-*.egg-info/
-*.egg
 *.seed
 *.pid
-*.log
 *.tmp
 *.tmp.*
 *.retry
 *~
 *.bak
-*.cache
 *.csv
 *.dat
 *.db
 *.db-shm
 *.db-wal
-*.pid
-*.swo
-*.swp
 *.zip
 *.tar.gz
 *.rar
 .idea/
 .vscode/
-.env
-env/
-venv/
-ENV/
-.env.bak/
-.venv/
-db.sqlite3
-logs/
-*.pyc
-*.pyo
-*.pyd
-*.pyz
-*.pyw
-*.pytest_cache/
