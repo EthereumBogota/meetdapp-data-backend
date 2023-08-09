@@ -1,3 +1,6 @@
+# SQLite database
+*.sqlite
+
 # Ignore Python bytecode files
 __pycache__/
 *.pyc
