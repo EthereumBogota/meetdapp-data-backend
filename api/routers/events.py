@@ -5,8 +5,8 @@ from fastapi import APIRouter, Depends, Query
 
 from sqlmodel import Session, select
 from typing import List
-from api.database import get_session
-from api.models import User, Event, EventRegistry, EventRegistryStatusEnum
+from api.services.database import get_session
+from api.models.models import User, Event, EventRegistry, EventRegistryStatusEnum
 
 router = APIRouter(
     prefix="/events",
