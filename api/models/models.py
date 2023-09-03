@@ -8,13 +8,7 @@ from datetime import datetime
 from enum import Enum
 
 # 'User' Classes -----------------------------
-class GroupUserLink(SQLModel, table=True):
-    group_id: Optional[int] = Field(
-        default=None, foreign_key="group.id", primary_key=True
-    )
-    user_wallet: Optional[str] = Field(
-        default=None, max_length=50, foreign_key="user.wallet", primary_key=True
-    )
+
 
 
 class User(SQLModel, table=True):
@@ -22,16 +16,8 @@ class User(SQLModel, table=True):
     nickname: str = Field(max_length=20)
     cid_img: Optional[str] = Field(default=None, max_length=50)
 
-    groups: List["Group"] = Relationship(back_populates="users", link_model=GroupUserLink)
     user_registry_links: List["EventRegistry"] = Relationship(back_populates="users")
 
-# 'Group' Classes -----------------------------
-class Group(SQLModel, table=True):
-    id :  Optional[int] = Field( default=None, primary_key=True)
-    name: str = Field(max_length=20)
-
-    users: List["User"] = Relationship(back_populates="groups", link_model=GroupUserLink)
-    events: List["Event"] = Relationship(back_populates="group")
 
 # 'Event' Classes -----------------------------
 class Event(SQLModel, table=True):
@@ -46,9 +32,6 @@ class Event(SQLModel, table=True):
     description: str  
     url: str  = Field(max_length=50) # Is it nescesary ?
     key_words: Optional[str]
-
-    group_id: int = Field(foreign_key="group.id")
-    group: Group = Relationship(back_populates="events")
 
     event_registry_links: List["EventRegistry"] = Relationship(back_populates="events")
 
