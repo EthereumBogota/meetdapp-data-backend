@@ -2,8 +2,8 @@ import os
 import time
 import pexpect
 
-PSW = os.getenv("PSW")
-FOLDER_D = os.getenv("FOLDER_D")
+PSW = "MeetDapp"
+FOLDER_D = "/meetdapp-data-backend/data_storage"
 
 
 class lightHouse:
@@ -20,7 +20,7 @@ class lightHouse:
         :param path:
         :return:
         """
-        s_data = pexpect.spawn(f"{self.light} upload-encrypted {path}", timeout=100)
+        s_data = pexpect.spawn(f"{self.light} upload {path}", timeout=100)
         s_data.expect("Y/n")
         time.sleep(3)
         s_data.sendline("Y")
@@ -39,12 +39,13 @@ class lightHouse:
 
         print(logs)
 
-        if len(logs) == 4:
-            index_data = {"url": logs[2].replace("\x1b[39m", ""),
-                            "CID": logs[-1]}
+        # Pilas si no regresa bien el CID
+        if len(logs) == 6:
+            index_data = {"url": logs[1],
+                          "CID": logs[-1]}
         else:
             index_data = {"url": logs[2].replace("\x1b[39m", ""),
-                            "CID": None}
+                          "CID": None}
 
         return index_data
 
