@@ -32,7 +32,7 @@ def create_dummy_data():
         "description": "string",
         "url": "string",
         "key_words": "keywords",
-        # "group_id": group_1.id
+        #"group_id": "1"
     }
 
     event = Event(**event_dict)

@@ -7,13 +7,11 @@ import os
 from fastapi import FastAPI
 
 # User modules 
-from api.services.database import   sqlite_file_name, create_db_and_tables
+from api.services.database import sqlite_file_name, create_db_and_tables
 from api.services.dummy_data import create_dummy_data
 from api.routers import users, events, ipfs
 
-
-
-#--------------------------------------
+# --------------------------------------
 # CREATING DUMMY DATABASE AND DATA
 # ADD dummy data in sqlite database (Only Dev Mode)----
 try:
@@ -26,13 +24,26 @@ print("Tables were created")
 create_dummy_data()
 # -------------------------------------
 
-app = FastAPI()
+description = """
+    This api is created to serve the neccesities 
+    of the Meet Dapp as IPFS, Users and Events.
+"""
 
-
-@app.get("/")
-def hello_world():
-    return {"MeeDapp Api": {"Version": "0.0.1", "Interactive Docs": "/docs", "Docs": "/redoc"}}
-
+app = FastAPI(
+    title="Meet Dapp API",
+    description=description,
+    version="0.0.1",
+    terms_of_service="http://example.com/terms/",
+    contact={
+        "name": "Your Name",
+        "url": "http://your-website-url.com",  # Replace with your actual website URL
+        "email": "your@email.com",  # Replace with your actual email
+    },
+    license_info={
+        "name": "MIT License",
+        "url": "https://opensource.org/licenses/MIT",
+    },
+)
 
 app.include_router(ipfs.router)
 app.include_router(users.router)
