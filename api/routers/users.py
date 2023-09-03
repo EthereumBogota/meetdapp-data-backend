@@ -3,7 +3,7 @@ Include all the routes starting at /user/
 '''
 from fastapi import APIRouter, Depends
 from sqlmodel import Session
-from api.database import get_session 
+from api.services.database import get_session 
 
 router = APIRouter(
     prefix="/users",
