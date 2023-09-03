@@ -28,6 +28,21 @@ async def read_events(*,
     events = db.exec(select(Event).offset(offset).limit(limit)).all()
     return events
 
+@router.patch("/web3_confirm")
+async def web3_confirm(*, contract_id: str, db: Session = Depends(get_session)):
+    '''
+    Confirm the creation of an EVENT from the web3 
+    '''
+    event = db.exec(select(Event).where(Event.event_contract == contract_id)).one()
+    if not event:
+        return {"confirmed": "failed"} 
+    event.web3_confirmed = True
+    db.add(event)
+    db.commit()
+    db.refresh(event)
+    db.commit()
+    return {"confirmed": "ok"}
+
 @router.post("/new_event", response_model=Event)
 async def create_event(*, event: Event, db: Session = Depends(get_session)):
     '''

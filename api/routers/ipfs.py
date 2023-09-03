@@ -16,7 +16,6 @@ async def save_data_ipfs(path: str):
 
     return file_2_ipfs
 
-
 @router.get("/download_data/")
 async def download_data(cid: str):
     obj_ipfs = sif.lightHouse()

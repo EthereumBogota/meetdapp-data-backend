@@ -15,6 +15,7 @@ class User(SQLModel, table=True):
     wallet: str = Field(primary_key=True, max_length=50)
     nickname: str = Field(max_length=20)
     cid_img: Optional[str] = Field(default=None, max_length=50)
+    web3_confirmed: Optional[bool] = Field(default=False)
 
     user_registry_links: List["EventRegistry"] = Relationship(back_populates="users")
 
@@ -32,6 +33,8 @@ class Event(SQLModel, table=True):
     description: str  
     url: str  = Field(max_length=50) # Is it nescesary ?
     key_words: Optional[str]
+    web3_confirmed: Optional[bool] = Field(default=False)
+
 
     event_registry_links: List["EventRegistry"] = Relationship(back_populates="events")
 
@@ -53,6 +56,8 @@ class EventRegistry(SQLModel, table=True):
 
     status: EventRegistryStatusEnum
     log_date: Optional[datetime] = Field(default=datetime.utcnow(), nullable=False, index=True)
+    web3_confirmed: Optional[bool] = Field(default=False)
+
 
     users: List[User] = Relationship(back_populates="user_registry_links")
     events: List[Event] = Relationship(back_populates="event_registry_links")
