@@ -21,6 +21,12 @@ The application will be available in your web browser at http://localhost:8080
 
 Each time you change your code the server will restart automatically!
 
+Note: If you are running  on Windows you should use this command instead:
+
+```console 
+docker run -p 8080:80 -v "%cd%:/code" -it meetdapp:latest
+```
+
 ### API Documentation
 
 The decentralized meeting application's API is documented with Swagger. You can access the documentation in your web browser through the following link:

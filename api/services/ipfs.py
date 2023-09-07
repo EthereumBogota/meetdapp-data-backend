@@ -6,7 +6,7 @@ PSW = "MeetDapp"
 FOLDER_D = "/meetdapp-data-backend/data_storage"
 
 
-class lightHouse:
+class LightHouse:
 
     def __init__(self):
         """
