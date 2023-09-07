@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session
+from fastapi import APIRouter, Depends, HTTPException, status, Query
+from sqlmodel import Session, select
 
 from api.services.database import get_session 
 from api.models.models import User
@@ -11,11 +11,14 @@ router = APIRouter(
 )
 
 @router.get("/", response_model=list[User])
-async def read_users(db: Session = Depends(get_session)):
+async def read_users(db: Session = Depends(get_session),
+                    offset: int = 0,
+                    limit: int = Query(default=100, lte=100),
+                    ):
     """
     Get a list of all users.
     """
-    users = db.query(User).all()
+    users = db.query(User).offset(offset).limit(limit).all()
     return users
 
 @router.post("/", response_model=User)
@@ -50,6 +53,15 @@ async def read_user_me(*, db: Session = Depends(get_session)):
     '''
     return {"wallet": "fakecurrentuser"}
 
+@router.get("/{wallet}")
+async def read_user(*, wallet: str,db: Session = Depends(get_session)):
+    '''
+    TODO: Create a return model to not disclose extra information
+    Returns the information about a user
+    '''
+    user = db.get(User, wallet)
+    return user
+
 
 
 
@@ -76,6 +88,7 @@ async def update_user(wallet: str, updated_user: User, db: Session = Depends(get
 @router.delete("/{wallet}", response_model=User)
 async def delete_user(wallet: str, db: Session = Depends(get_session)):
     """
+    TODO: check if user should be returned or it should be better if return a message of "deleted"
     Delete user by wallet address.
     """
     user = db.query(User).filter(User.wallet == wallet).first()

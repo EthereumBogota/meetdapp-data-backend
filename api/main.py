@@ -5,6 +5,7 @@ load_dotenv()
 import os
 
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 # User modules 
 from api.services.database import sqlite_file_name, create_db_and_tables
@@ -45,6 +46,10 @@ app = FastAPI(
     },
 )
 
+@app.get("/", summary="Root Redirect", description="Redirect to ReDoc Documentation")
+async def root_redirect(): return RedirectResponse("/docs")
+
+# ROUTERS
 app.include_router(ipfs.router)
 app.include_router(users.router)
 app.include_router(events.router)

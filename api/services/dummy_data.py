@@ -7,33 +7,37 @@ def create_dummy_data():
     
     session = Session(engine)
 
-    user_1 = User(wallet="123", nickname="123nick", cid_img="cid123")
-    user_2 = User(wallet="567", nickname="567nick", cid_img="cid567")
-    user_3 = User(wallet="890", nickname="890nick", cid_img="cid890")
+    user_1 = User(wallet="0x4aDc123", nickname="Alice", cid_img="QmXyz123")
+    user_2 = User(wallet="0x8BbE567", nickname="Bob", cid_img="QmAbc456")
+    user_3 = User(wallet="0xCcEf890", nickname="Charlie", cid_img="QmDef789")
 
-    # group_1 = Group(name="Ethereum")
-    # group_1.users = [user_1, user_2]
+
+
     session.add(user_1)
     session.add(user_2)
     session.add(user_3)
-    # session.add(group_1)
 
     session.commit()
 
+
     event_dict = {
-        "location": "string",
-        "y_cord": 0,
-        "x_cord": 0,
-        "name": "string",
-        "event_contract": "contract123",
-        "cid_img": "string",
-        "start_date": "2023-08-08T23:19:02.809Z",
-        "end_date": "2023-08-08T23:19:02.809Z",
-        "description": "string",
-        "url": "string",
-        "key_words": "keywords",
-        #"group_id": "1"
+    "event_id": "12345",
+    "name": "Sample Event",
+    "description": "This is a sample event description.",
+    "location": "Sample Location",
+    "nft_name": "Sample NFT",
+    "nft_symbol": "SNFT",
+    "nft_uri": "https://example.com/sample-nft",
+    "start_date": "2023-09-06T10:00:00Z",
+    "end_date": "2023-09-06T18:00:00Z",
+    "capacity": 100,
+    "y_cord": 123.456,
+    "x_cord": 789.012,
+    "cid_img": "QmXyz123",
+    "key_words": "sample, event, keywords",
+    "web3_confirmed": True
     }
+
 
     event = Event(**event_dict)
 
