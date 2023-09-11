@@ -17,6 +17,7 @@ python-dotenv = "^1.0.0"
 psycopg2-binary = "^2.9.6"
 pexpect = "^4.8.0"
 sqlmodel = "^0.0.8"
+lighthouseweb3 = "^0.1.4"
 
 [tool.poetry.group.dev.dependencies]
 python-dotenv = "^1.0.0"
