@@ -1,9 +1,8 @@
 import os
-import time
-import pexpect
+from lighthouseweb3 import Lighthouse
 
-PSW = "MeetDapp"
-FOLDER_D = "/meetdapp-data-backend/data_storage"
+API_TOKEN = os.environ["API_TOKEN"]
+FOLDER_DATA = os.environ["FOLDER_DATA"]
 
 
 class LightHouse:
@@ -12,40 +11,17 @@ class LightHouse:
         """
         Init class
         """
-        self.light = "lighthouse-web3"
+        self.lh = Lighthouse(token=API_TOKEN)
 
     def send_data_lh(self, path: str):
         """
         This function upload data to lighthouse
-        :param path:
-        :return:
+        :param path: local path to save data
+        :return: True if file upload successful
         """
-        s_data = pexpect.spawn(f"{self.light} upload {path}", timeout=100)
-        s_data.expect("Y/n")
-        time.sleep(3)
-        s_data.sendline("Y")
-        time.sleep(3)
-        s_data.expect("Enter your password:")
-        time.sleep(3)
-        s_data.sendline(f"{PSW}")
-        time.sleep(10)
-        s_data.expect("File Uploaded, visit following url to view content!")
-        time.sleep(3)
-        log = s_data.buffer.decode("utf-8").split()
-
-        logs = []
-        for line in log:
-            logs.append(line.replace("\x1b[39m", ""))
-
-        print(logs)
-
-        # Pilas si no regresa bien el CID
-        if len(logs) == 6:
-            index_data = {"url": logs[1],
-                          "CID": logs[-1]}
-        else:
-            index_data = {"url": logs[2].replace("\x1b[39m", ""),
-                          "CID": None}
+        tagged_source_file_path = path
+        index_data = self.lh.upload(source=tagged_source_file_path)
+        print("File Upload Successful!")
 
         return index_data
 
@@ -53,17 +29,23 @@ class LightHouse:
         """
         This function download data from IPFS lighthouse
         :param cid:
-        :return:
+        :return: True if file download successful
         """
-        d_data = pexpect.spawn(f"{self.light} decrypt-file {cid}",
-                                cwd=FOLDER_D,
-                                timeout=100)
-        d_data.expect("Enter your password:")
-        d_data.sendline(f"{PSW}")
-        d_data.expect("Decrypted")
-        time.sleep(10)
-        log = d_data.before.decode("utf-8")
 
-        print(f"{log}")
+        destination_path = FOLDER_DATA
 
-        return log.replace("\u001b[92m", "")
+        file_info = self.lh.download(cid)
+
+        file_content = file_info[0]
+
+        with open(destination_path, 'wb') as destination_file:
+            destination_file.write(file_content)
+
+        print("Download successful!")
+
+        if file_content:
+            estatus = True
+        else:
+            estatus = False
+
+        return estatus
