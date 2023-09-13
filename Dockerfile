@@ -3,7 +3,8 @@ FROM python:3.10
 WORKDIR /code
 COPY poetry.lock pyproject.toml /code/
 RUN pip install poetry
-RUN poetry install 
+RUN poetry install
+RUN poetry update
 EXPOSE 80
 # 
 COPY . /code/
