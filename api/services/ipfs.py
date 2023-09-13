@@ -1,8 +1,8 @@
 import os
 from lighthouseweb3 import Lighthouse
 
-API_TOKEN = os.environ["API_TOKEN"]
-FOLDER_DATA = os.environ["FOLDER_DATA"]
+API_TOKEN = os.environ["LIGHTHOUSE_API_TOKEN"]
+FOLDER_DATA = os.environ["LIGHTHOUSE_FOLDER_DATA"]
 
 
 class LightHouse:
