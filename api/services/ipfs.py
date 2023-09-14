@@ -1,4 +1,5 @@
 import os
+import json
 from lighthouseweb3 import Lighthouse
 
 API_TOKEN = os.environ["API_TOKEN"]
@@ -23,7 +24,7 @@ class LightHouse:
         index_data = self.lh.upload(source=tagged_source_file_path)
         print("File Upload Successful!")
 
-        return index_data
+        return json.dumps(index_data)
 
     def download_data_lh(self, cid: str):
         """
