@@ -6,7 +6,7 @@ API_TOKEN = os.environ["LIGHTHOUSE_API_TOKEN"]
 FOLDER_DATA = os.environ["LIGHTHOUSE_FOLDER_DATA"]
 
 
-class LightHouse:
+class LightHouse: 
 
     def __init__(self):
         """
@@ -14,17 +14,25 @@ class LightHouse:
         """
         self.lh = Lighthouse(token=API_TOKEN)
 
-    def send_data_lh(self, path: str):
+    def send_data_lh(self, path: str, tag: str = ""):
         """
+        TODO: In case of images, check the image and resize it so it does not use uneccessary space
+        
         This function upload data to lighthouse
-        :param path: local path to save data
+        :param path: local path of data
         :return: True if file upload successful
         """
-        tagged_source_file_path = path
-        index_data = self.lh.upload(source=tagged_source_file_path)
-        print("File Upload Successful!")
 
-        return json.dumps(index_data)
+        tagged_source_file_path = path
+        try:
+            index_data = self.lh.upload(path, tag=tag)
+        except Exception as e:
+            print("Error uploading file to lighthouse")
+            print(e)
+            return {"error": "Error uploading file to lighthouse"}
+
+        print("File Upload Successful!")
+        return index_data
 
     def download_data_lh(self, cid: str):
         """

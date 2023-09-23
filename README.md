@@ -6,8 +6,17 @@ This is a decentralized application (Dapp) called "Meet Dapp" that enables users
 
 ## Development enviroment:
 
-### Step 1: Build Docker Image
+### Step 0: add the .env
+Add a file .env to the main directory and include the following enviroment variables with it's corresponding values
+```
+ENVIRONMENT=DEV
 
+# Variables para guardar archivos en LightHouse
+LIGHTHOUSE_API_TOKEN=...
+LIGHTHOUSE_FOLDER_DATA=...
+```
+
+### Step 1: Build Docker Image
 Run the following command to build the Docker image for the decentralized application:
 
 ```console
@@ -43,6 +52,19 @@ Thank you for using Meet Dapp! If you have any questions or need assistance, fee
 
 ### Step 1: Add a file .env to the main directory and include the following enviroment variables with it's corresponding values
 
+```
+ENVIRONMENT=DEV
+
+# Variables para guardar archivos en LightHouse
+LIGHTHOUSE_API_TOKEN=...
+LIGHTHOUSE_FOLDER_DATA=...
+
+# Variables de entorno para configurar base de datos en entorno de PROD
+DB_URL=...
+DB_PORT=...
+DB_USERNAME=...
+DB_PASSWORD=...
+```
 
 ### Step 2: Build Docker Image
 
